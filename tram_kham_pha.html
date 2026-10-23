@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trạm Khám Phá</title>
+<style>
+:root{--bg:#f7f5ef;--paper:#fffdf8;--ink:#20251f;--muted:#687064;--green:#315b45;--lime:#d8e6b8;--line:#e7e4d9;--orange:#e78c55}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.6}
+button,input,textarea{font:inherit}button,a{ -webkit-tap-highlight-color:transparent}a{color:inherit;text-decoration:none}
+.wrap{width:min(1120px,92%);margin:auto}
+header{position:sticky;top:0;z-index:10;background:rgba(247,245,239,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:76px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:850;letter-spacing:-.6px;font-size:1.15rem}
+.logo{width:38px;height:38px;border-radius:13px;background:var(--green);color:white;display:grid;place-items:center;font-size:20px}
+.navlinks{display:flex;gap:24px;color:var(--muted);font-size:.94rem;font-weight:650}.navlinks a:hover,.navlinks a.active{color:var(--green)}
+.nav-actions{display:flex;gap:8px;align-items:center}
+.btn{border:0;border-radius:999px;padding:11px 17px;font-weight:750;cursor:pointer;transition:transform .15s,background .15s}
+.btn:hover{transform:translateY(-1px)}.primary{background:var(--green);color:#fff}.secondary{background:var(--lime);color:var(--green)}.ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}
+.menu{display:none}
+.hero{padding:66px 0 52px;display:grid;grid-template-columns:1.1fr .9fr;gap:42px;align-items:center}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--green);font-size:.78rem;letter-spacing:1.5px;text-transform:uppercase;font-weight:850}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--orange)}
+h1{font-size:clamp(2.8rem,6vw,5.25rem);line-height:.99;letter-spacing:-4px;margin:18px 0 22px;max-width:650px}
+h1 em{font-family:Georgia,serif;font-weight:500;color:var(--green)}
+.hero p{font-size:1.08rem;color:var(--muted);max-width:510px;margin:0 0 25px}
+.hero-buttons{display:flex;flex-wrap:wrap;gap:10px}
+.hero-art{min-height:340px;position:relative;border-radius:32px;background:#dce7ce;overflow:hidden;padding:28px;display:flex;align-items:end}
+.sun{position:absolute;width:145px;height:145px;background:#f1b77d;border-radius:50%;top:35px;right:40px}
+.hill{position:absolute;bottom:-55px;border-radius:50% 50% 0 0;width:120%;height:200px;left:-10%;background:#73906a;transform:rotate(-7deg)}
+.hill2{position:absolute;bottom:-88px;left:-5%;width:115%;height:210px;border-radius:50% 50% 0 0;background:#315b45;transform:rotate(8deg)}
+.art-note{position:relative;z-index:2;background:rgba(255,253,248,.92);padding:16px 18px;border-radius:18px;max-width:235px;box-shadow:0 10px 30px #1e38251a}
+.art-note strong{display:block;font-size:1.05rem}.art-note span{font-size:.85rem;color:var(--muted)}
+.stats{display:flex;gap:28px;flex-wrap:wrap;margin-top:30px}.stat strong{display:block;font-size:1.25rem}.stat span{font-size:.84rem;color:var(--muted)}
+section{padding:38px 0 62px;scroll-margin-top:90px}
+.section-top{display:flex;justify-content:space-between;gap:20px;align-items:end;margin-bottom:24px}
+.kicker{color:var(--orange);font-size:.78rem;text-transform:uppercase;letter-spacing:1.4px;font-weight:850}
+h2{font-size:clamp(1.8rem,3vw,2.65rem);line-height:1.1;letter-spacing:-1.3px;margin:7px 0}
+.section-top p{color:var(--muted);margin:8px 0 0}
+.searchbar{display:flex;gap:8px;max-width:360px;width:100%}.searchbar input{min-width:0;flex:1;border:1px solid var(--line);border-radius:999px;padding:12px 16px;background:var(--paper);outline-color:var(--green)}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}.filter{border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:8px 14px;cursor:pointer;color:var(--muted);font-weight:700}.filter.active{background:var(--green);border-color:var(--green);color:white}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:22px;overflow:hidden;transition:transform .18s,box-shadow .18s;display:flex;flex-direction:column}
+.card:hover{transform:translateY(-4px);box-shadow:0 15px 35px #243c2610}
+.cover{height:170px;display:grid;place-items:center;font-size:3.5rem;position:relative;overflow:hidden}.cover:after{content:"";position:absolute;width:160px;height:160px;border:1px solid #ffffff80;border-radius:50%;right:-30px;top:-50px}.cover span{position:relative;z-index:1}
+.cover.green{background:#dce7ce}.cover.peach{background:#f6ddc8}.cover.blue{background:#d5e5e9}.cover.lilac{background:#e4dcef}.cover.yellow{background:#f2e8b9}.cover.pink{background:#f0d7d8}
+.card-body{padding:20px;display:flex;flex-direction:column;align-items:start;flex:1}
+.tag{font-size:.75rem;font-weight:850;text-transform:uppercase;letter-spacing:1px;color:var(--green)}
+.card h3{font-size:1.25rem;line-height:1.25;letter-spacing:-.4px;margin:9px 0}
+.card p{color:var(--muted);font-size:.93rem;margin:0 0 18px}
+.read{margin-top:auto;border:0;background:none;color:var(--green);font-weight:850;cursor:pointer;padding:0}.read:hover{text-decoration:underline}
+.empty{display:none;text-align:center;padding:30px;color:var(--muted)}
+.about-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:24px;align-items:stretch}
+.about-visual{background:var(--green);color:white;border-radius:26px;padding:30px;display:flex;flex-direction:column;justify-content:space-between;min-height:250px}
+.about-visual .big{font-size:3.4rem}.about-visual p{color:#e1ebdd;max-width:280px}
+.about-copy{background:var(--paper);border:1px solid var(--line);border-radius:26px;padding:30px}.about-copy p{color:var(--muted)}
+.pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}.pills span{background:#edf1e5;color:var(--green);padding:7px 11px;border-radius:999px;font-size:.83rem;font-weight:750}
+.share-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.share-copy{padding:20px 0}.share-copy p{color:var(--muted);max-width:460px}
+.formbox{background:var(--paper);border:1px solid var(--line);padding:25px;border-radius:24px}
+.formbox label{display:block;font-size:.88rem;font-weight:800;margin:12px 0 6px}
+.formbox input,.formbox textarea,.formbox select{width:100%;border:1px solid var(--line);border-radius:12px;padding:12px;background:#fffefa;outline-color:var(--green)}
+.formbox textarea{min-height:115px;resize:vertical}.formbox .btn{margin-top:14px}
+.notice{font-size:.83rem;color:var(--muted);margin:10px 0 0}
+footer{background:#202a22;color:#f7f5ef;padding:30px 0}.foot{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}.foot small{color:#c5cec1}
+.modal{position:fixed;inset:0;z-index:30;background:#17231dcc;display:none;align-items:center;justify-content:center;padding:18px}.modal.open{display:flex}.modal-box{background:var(--paper);max-width:650px;width:100%;max-height:85vh;overflow:auto;border-radius:26px;padding:30px;position:relative}.close{position:absolute;right:18px;top:18px;border:0;background:var(--bg);width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:1.2rem}.modal-box h2{padding-right:40px}.modal-box p{color:var(--muted)}
+.toast{position:fixed;bottom:20px;left:50%;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#202a22;color:white;padding:12px 18px;border-radius:999px;z-index:40;transition:.25s;max-width:90%;text-align:center}.toast.show{opacity:1;transform:translate(-50%,0)}
+body.dark{--bg:#171d18;--paper:#222a23;--ink:#f3f2e9;--muted:#b9c2b6;--green:#b9d5a8;--lime:#344333;--line:#39443a}body.dark .primary{background:#b9d5a8;color:#172017}body.dark .filter.active{color:#172017}body.dark .formbox input,body.dark .formbox textarea,body.dark .formbox select{background:#171d18;color:#f3f2e9}body.dark header{background:#171d18eF}body.dark .hero-art{background:#354735}body.dark .cover.green{background:#344333}body.dark .cover.peach{background:#4b382b}body.dark .cover.blue{background:#2e4248}body.dark .cover.lilac{background:#40354c}body.dark .cover.yellow{background:#4b452c}body.dark .cover.pink{background:#4b3034}
+@media(max-width:800px){.hero{grid-template-columns:1fr;padding-top:42px}.hero-art{min-height:280px}.cards{grid-template-columns:repeat(2,1fr)}.about-grid,.share-grid{grid-template-columns:1fr}.navlinks{gap:13px}.navlinks a{font-size:.85rem}}
+@media(max-width:560px){.nav{min-height:66px}.navlinks{display:none;position:absolute;left:4%;right:4%;top:65px;background:var(--paper);border:1px solid var(--line);padding:15px;border-radius:16px;flex-direction:column;gap:12px}.navlinks.open{display:flex}.menu{display:inline-flex}.nav-actions .secondary{display:none}h1{letter-spacing:-2.5px}.hero{gap:25px}.section-top{align-items:start;flex-direction:column}.searchbar{max-width:none}.cards{grid-template-columns:1fr}.cover{height:150px}.stats{gap:20px}.about-copy,.formbox{padding:21px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#home" aria-label="Trạm Khám Phá, trang chủ"><span class="logo">✳</span> Trạm Khám Phá</a>
+    <nav class="navlinks" id="navlinks">
+      <a href="#home" class="active">Trang chủ</a><a href="#articles">Bài viết</a><a href="#about">Giới thiệu</a><a href="#share">Gửi chia sẻ</a>
+    </nav>
+    <div class="nav-actions"><button class="btn ghost" id="themeBtn" aria-label="Đổi giao diện">☾</button><a class="btn secondary" href="#articles">Khám phá →</a><button class="btn ghost menu" id="menuBtn" aria-label="Mở menu">☰</button></div>
+  </div>
+</header>
+<main>
+  <div class="wrap">
+    <section class="hero" id="home">
+      <div>
+        <div class="eyebrow"><span class="dot"></span> Một góc nhỏ dành cho tò mò</div>
+        <h1>Mỗi ngày, mở ra một <em>điều mới.</em></h1>
+        <p>Nơi gom nhặt kiến thức thú vị, những câu chuyện đời thường và góc nhìn riêng của mỗi người. Ghé một chút, biết thêm một điều.</p>
+        <div class="hero-buttons"><a class="btn primary" href="#articles">Đọc bài viết <span aria-hidden="true">↗</span></a><a class="btn ghost" href="#about">Tìm hiểu về trạm</a></div>
+        <div class="stats"><div class="stat"><strong>✦ Tò mò</strong><span>Bắt đầu từ câu hỏi</span></div><div class="stat"><strong>⌁ Chia sẻ</strong><span>Kiến thức cho mọi người</span></div><div class="stat"><strong>♡ Cởi mở</strong><span>Ai cũng có góc nhìn riêng</span></div></div>
+      </div>
+      <div class="hero-art" aria-label="Minh họa mặt trời và những ngọn đồi">
+        <div class="sun"></div><div class="hill"></div><div class="hill2"></div>
+        <div class="art-note"><strong>Hôm nay bạn học được gì?</strong><span>Một ý tưởng nhỏ cũng có thể mở ra cả thế giới.</span></div>
+      </div>
+    </section>
+    <section id="articles">
+      <div class="section-top"><div><div class="kicker">Tủ bài viết</div><h2>Chọn điều bạn muốn khám phá</h2><p>Bấm vào từng thẻ để đọc bài mẫu.</p></div>
+        <div class="searchbar"><input id="searchInput" type="search" placeholder="Tìm bài viết..." aria-label="Tìm bài viết"><button class="btn primary" id="searchBtn">Tìm</button></div>
+      </div>
+      <div class="filters" role="group" aria-label="Lọc bài viết"><button class="filter active" data-filter="all">Tất cả</button><button class="filter" data-filter="knowledge">Kiến thức</button><button class="filter" data-filter="life">Chuyện quanh ta</button><button class="filter" data-filter="view">Góc nhìn</button></div>
+      <div class="cards" id="cards">
+        <article class="card" data-category="knowledge" data-search="vì sao bầu trời màu xanh ánh sáng khoa học"><div class="cover blue"><span>🌤️</span></div><div class="card-body"><span class="tag">Kiến thức</span><h3>Vì sao bầu trời có màu xanh?</h3><p>Một hiện tượng quen thuộc nhưng có lời giải thích khoa học khá thú vị.</p><button class="read" data-article="sky">Đọc bài này ↗</button></div></article>
+        <article class="card" data-category="life" data-search="thói quen nhỏ học tập cuộc sống mỗi ngày"><div class="cover green"><span>🌱</span></div><div class="card-body"><span class="tag">Chuyện quanh ta</span><h3>Những thói quen nhỏ tạo khác biệt</h3><p>Không cần thay đổi tất cả trong một ngày. Hãy thử bắt đầu từ một việc vừa sức.</p><button class="read" data-article="habits">Đọc bài này ↗</button></div></article>
+        <article class="card" data-category="view" data-search="sai lầm thất bại học hỏi góc nhìn"><div class="cover peach"><span>🧩</span></div><div class="card-body"><span class="tag">Góc nhìn</span><h3>Sai một lần có phải là kém cỏi?</h3><p>Điều quan trọng không chỉ là kết quả, mà còn là thứ ta hiểu ra sau đó.</p><button class="read" data-article="mistakes">Đọc bài này ↗</button></div></article>
+        <article class="card" data-category="knowledge" data-search="não bộ trí nhớ nghỉ ngơi học tập"><div class="cover lilac"><span>🧠</span></div><div class="card-body"><span class="tag">Kiến thức</span><h3>Bộ não cần nghỉ để học tốt hơn</h3><p>Học tập hiệu quả không chỉ là ngồi lâu, mà còn là nghỉ ngơi đúng lúc.</p><button class="read" data-article="brain">Đọc bài này ↗</button></div></article>
+        <article class="card" data-category="life" data-search="âm nhạc cảm xúc giai điệu cuộc sống"><div class="cover pink"><span>🎧</span></div><div class="card-body"><span class="tag">Chuyện quanh ta</span><h3>Âm nhạc thay đổi tâm trạng thế nào?</h3><p>Một giai điệu có thể gợi ký ức và giúp ta gọi tên cảm xúc của mình.</p><button class="read" data-article="music">Đọc bài này ↗</button></div></article>
+        <article class="card" data-category="view" data-search="mạng xã hội so sánh bản thân tiến bộ"><div class="cover yellow"><span>🪴</span></div><div class="card-body"><span class="tag">Góc nhìn</span><h3>Đừng lấy hành trình người khác làm thước đo</h3><p>Mỗi người có điểm xuất phát, nhịp độ và hoàn cảnh khác nhau.</p><button class="read" data-article="compare">Đọc bài này ↗</button></div></article>
+      </div>
+      <div class="empty" id="empty">Không tìm thấy bài phù hợp. Thử từ khóa khác nha.</div>
+    </section>
+    <section id="about">
+      <div class="section-top"><div><div class="kicker">Về chúng mình</div><h2>Một trạm dừng cho những câu hỏi hay</h2></div></div>
+      <div class="about-grid"><div class="about-visual"><div class="big">✳</div><div><h3>Hỏi. Đọc. Nghĩ. Chia sẻ.</h3><p>Không cần biết mọi thứ. Chỉ cần luôn sẵn lòng tìm hiểu thêm.</p></div></div><div class="about-copy"><h3>Chào mừng bạn đến Trạm Khám Phá!</h3><p>Đây là một website nhỏ để đọc những điều thú vị, khám phá kiến thức và chia sẻ suy nghĩ. Nội dung có thể bắt đầu từ những câu hỏi rất bình thường trong học tập và cuộc sống.</p><p>Hãy đọc bài bạn thích, gửi một ý tưởng hoặc đề xuất chủ đề cho bài tiếp theo. Một cộng đồng tốt bắt đầu bằng sự tò mò và tôn trọng lẫn nhau.</p><div class="pills"><span>📚 Học hỏi</span><span>🌍 Khám phá</span><span>💬 Chia sẻ</span><span>🌿 Phát triển</span></div></div></div>
+    </section>
+    <section id="share">
+      <div class="section-top"><div><div class="kicker">Đến lượt bạn</div><h2>Gửi một điều bạn muốn chia sẻ</h2><p>Ý tưởng của bạn có thể trở thành chủ đề cho bài viết tiếp theo.</p></div></div>
+      <div class="share-grid"><div class="share-copy"><h3>Không có ý tưởng nào quá nhỏ.</h3><p>Bạn có thể đề xuất một câu hỏi khoa học, kể một chuyện vui, chia sẻ mẹo học tập hoặc nêu góc nhìn của mình.</p><p><strong>Lưu ý:</strong> Đây là bản demo chạy ngay trên trình duyệt. Biểu mẫu hiện chưa gửi dữ liệu lên mạng hoặc gửi email cho chủ website.</p></div>
+        <form class="formbox" id="shareForm"><label for="name">Tên hoặc biệt danh</label><input id="name" name="name" placeholder="Bạn muốn được gọi là..." required maxlength="60"><label for="topic">Chủ đề</label><select id="topic" name="topic"><option>Kiến thức thú vị</option><option>Chuyện quanh ta</option><option>Góc nhìn cá nhân</option><option>Mẹo học tập</option><option>Khác</option></select><label for="idea">Nội dung chia sẻ</label><textarea id="idea" name="idea" placeholder="Viết ý tưởng của bạn ở đây..." required maxlength="1000"></textarea><button class="btn primary" type="submit">Gửi bản nháp ↗</button><p class="notice">Bấm gửi sẽ hiện bản xem trước để bạn sao chép, không tự đăng công khai.</p></form>
+      </div>
+    </section>
+  </div>
+</main>
+<footer><div class="wrap foot"><a class="brand" href="#home"><span class="logo">✳</span> Trạm Khám Phá</a><small>Được tạo bằng sự tò mò · © <span id="year"></span></small><a href="#home">Lên đầu trang ↑</a></div></footer>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal-box"><button class="close" id="closeModal" aria-label="Đóng">×</button><div class="kicker" id="modalTag">Bài viết</div><h2 id="modalTitle"></h2><div id="modalText"></div><button class="btn secondary" id="modalDone">Đã đọc xong ✓</button></div></div>
+<div class="toast" id="toast" role="status"></div>
+<script>
+const articles={
+sky:{tag:'Kiến thức',title:'Vì sao bầu trời có màu xanh?',text:`<p>Ánh sáng Mặt Trời trông có vẻ trắng, nhưng thực ra chứa nhiều màu sắc. Khi đi vào khí quyển, ánh sáng va chạm với các phân tử không khí và bị tán xạ.</p><p>Ánh sáng xanh có bước sóng ngắn hơn nên thường bị tán xạ mạnh hơn ánh sáng đỏ. Vì vậy, khi nhìn lên bầu trời ban ngày, mắt ta nhận được ánh sáng xanh từ nhiều hướng.</p><p><strong>Điều thú vị:</strong> lúc bình minh và hoàng hôn, ánh sáng đi qua lớp khí quyển dài hơn, khiến nhiều ánh sáng xanh bị tán xạ khỏi đường nhìn trực tiếp và màu đỏ, cam trở nên nổi bật.</p>`},
+habits:{tag:'Chuyện quanh ta',title:'Những thói quen nhỏ tạo khác biệt',text:`<p>Ta thường đặt mục tiêu thật lớn rồi nản khi chưa thấy kết quả. Một cách dễ bắt đầu hơn là chọn việc nhỏ đến mức bạn có thể làm ngay hôm nay.</p><p>Ví dụ: đọc hai trang sách, tập đàn mười phút, ôn năm từ mới hoặc dọn bàn học trong ba phút. Khi việc nhỏ được lặp lại đều đặn, nó tạo thành nhịp sinh hoạt ổn định.</p><p>Đừng dùng một ngày chưa tốt để kết luận rằng mình không thể tiến bộ. Hãy xem điều gì cản trở bạn và điều chỉnh cho ngày mai.</p>`},
+mistakes:{tag:'Góc nhìn',title:'Sai một lần có phải là kém cỏi?',text:`<p>Một kết quả chưa tốt chỉ cho biết lần làm đó chưa đạt mục tiêu. Nó không thể tóm tắt toàn bộ năng lực hay giá trị của một người.</p><p>Thay vì chỉ hỏi “Sao mình dở thế?”, thử hỏi ba câu: Mình đã làm được gì? Chỗ nào chưa ổn? Lần sau mình sẽ thử thay đổi điều gì?</p><p>Nhìn thẳng vào lỗi sai không có nghĩa là tự trách mình. Đó là cách biến trải nghiệm thành thông tin để tiến bộ.</p>`},
+brain:{tag:'Kiến thức',title:'Bộ não cần nghỉ để học tốt hơn',text:`<p>Khi học, ta cần chú ý, hiểu và củng cố thông tin. Nghỉ ngơi hợp lý giúp duy trì sự tập trung, còn giấc ngủ đóng vai trò quan trọng trong việc củng cố trí nhớ.</p><p>Thử chia buổi học thành những khoảng vừa sức, xen kẽ nghỉ ngắn và quay lại tự kiểm tra xem mình nhớ được gì. Chỉ đọc lại nhiều lần chưa chắc đã giúp nhớ lâu bằng việc chủ động gợi nhớ.</p><p>Mẹo nhỏ: sau khi học xong một phần, gấp tài liệu lại và tự nói hoặc viết ra ba ý chính.</p>`},
+music:{tag:'Chuyện quanh ta',title:'Âm nhạc thay đổi tâm trạng thế nào?',text:`<p>Âm nhạc có thể gắn với ký ức, con người và những thời điểm cụ thể trong cuộc sống. Một bài hát quen thuộc đôi khi khiến ta nhớ lại một chuyến đi hoặc một người bạn.</p><p>Nhịp điệu, giai điệu và lời ca cũng ảnh hưởng đến cảm nhận của mỗi người. Tuy vậy, cùng một bài nhạc, người này có thể thấy phấn chấn còn người khác lại thấy trầm lắng.</p><p>Bạn có thể thử lập một danh sách nhạc cho từng hoạt động: tập trung, thư giãn hoặc vận động, rồi để ý xem loại nhạc nào hợp với mình.</p>`},
+compare:{tag:'Góc nhìn',title:'Đừng lấy hành trình người khác làm thước đo',text:`<p>Ta thường nhìn thấy thành quả của người khác nhưng không thấy hết thời gian luyện tập, khó khăn và sự hỗ trợ phía sau. So sánh chỉ dựa trên kết quả dễ khiến bức tranh bị thiếu.</p><p>Nếu cần một phép so sánh hữu ích, hãy nhìn lại chính mình: điều gì hôm nay đã dễ hơn tháng trước? Kỹ năng nào đang tiến bộ? Mình cần hỗ trợ ở đâu?</p><p>Người khác vẫn có thể là nguồn cảm hứng, nhưng mục tiêu của họ không nhất thiết phải trở thành lịch trình của bạn.</p>`}
+};
+const modal=document.getElementById('modal'),toast=document.getElementById('toast');let toastTimer;
+function showToast(msg){toast.textContent=msg;toast.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove('show'),3000)}
+function openArticle(key){const a=articles[key];if(!a)return;document.getElementById('modalTag').textContent=a.tag;document.getElementById('modalTitle').textContent=a.title;document.getElementById('modalText').innerHTML=a.text;modal.classList.add('open');document.body.style.overflow='hidden';document.getElementById('closeModal').focus()}
+function closeArticle(){modal.classList.remove('open');document.body.style.overflow=''}
+document.querySelectorAll('[data-article]').forEach(b=>b.addEventListener('click',()=>openArticle(b.dataset.article)));
+document.getElementById('closeModal').addEventListener('click',closeArticle);document.getElementById('modalDone').addEventListener('click',closeArticle);modal.addEventListener('click',e=>{if(e.target===modal)closeArticle()});document.addEventListener('keydown',e=>{if(e.key==='Escape')closeArticle()});
+let currentFilter='all';
+function filterCards(){const q=document.getElementById('searchInput').value.trim().toLowerCase();let count=0;document.querySelectorAll('.card').forEach(c=>{const matchesCat=currentFilter==='all'||c.dataset.category===currentFilter;const matchesText=!q||(c.dataset.search+' '+c.innerText).toLowerCase().includes(q);const show=matchesCat&&matchesText;c.style.display=show?'flex':'none';if(show)count++});document.getElementById('empty').style.display=count?'none':'block'}
+document.querySelectorAll('.filter').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.filter').forEach(x=>x.classList.remove('active'));b.classList.add('active');currentFilter=b.dataset.filter;filterCards()}));
+document.getElementById('searchBtn').addEventListener('click',filterCards);document.getElementById('searchInput').addEventListener('input',filterCards);document.getElementById('searchInput').addEventListener('keydown',e=>{if(e.key==='Enter')filterCards()});
+document.getElementById('themeBtn').addEventListener('click',()=>{document.body.classList.toggle('dark');const dark=document.body.classList.contains('dark');document.getElementById('themeBtn').textContent=dark?'☀':'☾';showToast(dark?'Đã bật giao diện tối':'Đã bật giao diện sáng')});
+document.getElementById('menuBtn').addEventListener('click',()=>document.getElementById('navlinks').classList.toggle('open'));document.querySelectorAll('#navlinks a').forEach(a=>a.addEventListener('click',()=>document.getElementById('navlinks').classList.remove('open')));
+document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const target=document.querySelector(a.getAttribute('href'));if(target){e.preventDefault();target.scrollIntoView({behavior:'smooth'});history.replaceState(null,'',a.getAttribute('href'))}}));
+document.getElementById('shareForm').addEventListener('submit',e=>{e.preventDefault();const name=document.getElementById('name').value.trim(),topic=document.getElementById('topic').value,idea=document.getElementById('idea').value.trim();const draft=`BẢN NHÁP CHIA SẺ\\nTên: ${name}\\nChủ đề: ${topic}\\nNội dung:\\n${idea}`;const box=document.createElement('div');box.innerHTML='<h3>Bản nháp của bạn</h3><p>Biểu mẫu demo chưa gửi dữ liệu lên mạng. Hãy sao chép nội dung bên dưới để lưu lại.</p><textarea id="draftOutput" style="width:100%;min-height:150px;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink)"></textarea><button class="btn primary" id="copyDraft">Sao chép bản nháp</button>';document.getElementById('modalTag').textContent='Gửi chia sẻ';document.getElementById('modalTitle').textContent='Cảm ơn bạn đã góp ý!';const mt=document.getElementById('modalText');mt.innerHTML='';mt.appendChild(box);document.getElementById('draftOutput').value=draft;modal.classList.add('open');document.body.style.overflow='hidden';document.getElementById('copyDraft').addEventListener('click',async()=>{const out=document.getElementById('draftOutput');out.select();try{await navigator.clipboard.writeText(draft);showToast('Đã sao chép bản nháp!')}catch(err){showToast('Đã chọn bản nháp, hãy nhấn Ctrl+C để sao chép')}})});
+document.getElementById('year').textContent=new Date().getFullYear();
+</script>
+</body>
+</html>
